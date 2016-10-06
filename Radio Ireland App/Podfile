@@ -1,0 +1,9 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, ‘7.1’
+
+target ‘Radio Ireland App’ do
+pod 'AFNetworking', '~> 2.5.4’
+pod 'CGLAlphabetizer', '~> 0.1'
+pod 'Shapes', '~> 1.0.2'
+pod 'MarqueeLabel', '~> 1.4.1'
+end

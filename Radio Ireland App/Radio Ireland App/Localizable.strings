@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  Radio Ireland App
+
+  Created by Brian Doyle on 01/10/2016.
+  Copyright (c) 2016 Brian Doyle. All rights reserved.
+*/
+
+"Select a Station" = "Select a Station";
+"User Name" = "User Name";
+"User Name must be atleast 2 characters long" = "User Name must be atleast 2 characters long";
+"OK" = "OK";
+"Error Retrieving Chat" = "Error Retrieving Chat";
+"Success" = "Success";
+"Chat name created." = "Chat name created.";
+"User Name must be atleast 2 characters long" = "User Name must be atleast 2 characters long";
+"Error" = "Error";
+"Could not create this name, please try again." = "Could not create this name, please try again.";
+"by" = "by";
+"Name" = "Name";
+"Enter a chat name" = "Enter a chat name";
+"Register" = "Register";

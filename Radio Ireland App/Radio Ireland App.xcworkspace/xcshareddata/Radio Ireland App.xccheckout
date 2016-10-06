@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D77E3443-7DC8-4EB9-865E-30E4B76E53D8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Radio Ireland App</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>39393070A59695BE11C5C486C4E0501F75AA9844</key>
+		<string>https://github.com/BDoyle123/Irsh-rd-pp.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Radio Ireland App/Radio Ireland App.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>39393070A59695BE11C5C486C4E0501F75AA9844</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/BDoyle123/Irsh-rd-pp.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>39393070A59695BE11C5C486C4E0501F75AA9844</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>39393070A59695BE11C5C486C4E0501F75AA9844</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Irsh-rd-pp</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,41 @@
+PODS:
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - CGLAlphabetizer (0.2.0)
+  - MarqueeLabel (1.4.3)
+  - Shapes (1.0.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.5.4)
+  - CGLAlphabetizer (~> 0.1)
+  - MarqueeLabel (~> 1.4.1)
+  - Shapes (~> 1.0.2)
+
+SPEC CHECKSUMS:
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  CGLAlphabetizer: 944706922004b02e5b5af39bb2b25adaaac71038
+  MarqueeLabel: 1a7a94574fe13253716c66f160110f1f1019de47
+  Shapes: 0e67e4324ce4a3cd0d4ca9431bd26387a677877f
+
+PODFILE CHECKSUM: 026a61463cf64ae0c2e50deaefbc1377ee84bf87
+
+COCOAPODS: 1.0.0
