@@ -146,25 +146,10 @@
 		1DC7C6A21D928599005945CB /* Radio Ireland App */ = {
 			isa = PBXGroup;
 			children = (
+				6179C9931DAC22A800A28BE3 /* About */,
+				6179C9921DAC228500A28BE3 /* Radio */,
+				6179C9911DAC224300A28BE3 /* Chat */,
 				1D6D68CC1DA04AAB0070FA15 /* 3rd Party Code */,
-				1DC7C6CD1D9287A5005945CB /* RadioUIVC.h */,
-				1DC7C6C91D9287A5005945CB /* RadioUIVC.m */,
-				1DC7C6CC1D9287A5005945CB /* RadioUIVC.xib */,
-				1DC7C6CB1D9287A5005945CB /* AudioPlayer.h */,
-				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
-				1DC7C6CE1D9287A5005945CB /* ChatDataHandler.h */,
-				1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */,
-				1DC7C6D41D9287A5005945CB /* ChatViewController.h */,
-				1DC7C6D01D9287A5005945CB /* ChatViewController.m */,
-				1DC7C6D11D9287A5005945CB /* ChatViewController.xib */,
-				1DC7C6D21D9287A5005945CB /* RadioViewController.h */,
-				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
-				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
-				1DC7C6D51D9287A5005945CB /* Radio.h */,
-				1DC7C6D61D9287A5005945CB /* Radio.m */,
-				1DC7C6D71D9287A5005945CB /* AboutVC.h */,
-				1DC7C6D81D9287A5005945CB /* AboutVC.m */,
-				1DC7C6D91D9287A5005945CB /* AboutVC.xib */,
 				1DC7C6A71D928599005945CB /* AppDelegate.h */,
 				1DC7C6A81D928599005945CB /* AppDelegate.m */,
 				1DC7C6AA1D928599005945CB /* ViewController.h */,
@@ -173,8 +158,6 @@
 				1DC7C6B01D928599005945CB /* Images.xcassets */,
 				1DC7C6B21D928599005945CB /* LaunchScreen.xib */,
 				1DC7C6A31D928599005945CB /* Supporting Files */,
-				1D759CA01D9447FF00A8BECD /* RadioStationDataLoader.h */,
-				1D759CA11D9447FF00A8BECD /* RadioStationDataLoader.m */,
 				1D76D5251D987D0D00DE0CB1 /* Constants.h */,
 				1D76D5261D987D0D00DE0CB1 /* Constants.m */,
 				1D6D68CD1DA04B210070FA15 /* Localizable.strings */,
@@ -224,6 +207,47 @@
 				3690B336448B212FF58BDE21 /* Pods-Radio Ireland App.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		6179C9911DAC224300A28BE3 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1DC7C6D01D9287A5005945CB /* ChatViewController.m */,
+				1DC7C6D11D9287A5005945CB /* ChatViewController.xib */,
+				1DC7C6D41D9287A5005945CB /* ChatViewController.h */,
+				1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */,
+				1DC7C6CE1D9287A5005945CB /* ChatDataHandler.h */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		6179C9921DAC228500A28BE3 /* Radio */ = {
+			isa = PBXGroup;
+			children = (
+				1D759CA11D9447FF00A8BECD /* RadioStationDataLoader.m */,
+				1D759CA01D9447FF00A8BECD /* RadioStationDataLoader.h */,
+				1DC7C6D61D9287A5005945CB /* Radio.m */,
+				1DC7C6D51D9287A5005945CB /* Radio.h */,
+				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
+				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
+				1DC7C6D21D9287A5005945CB /* RadioViewController.h */,
+				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
+				1DC7C6CB1D9287A5005945CB /* AudioPlayer.h */,
+				1DC7C6CC1D9287A5005945CB /* RadioUIVC.xib */,
+				1DC7C6C91D9287A5005945CB /* RadioUIVC.m */,
+				1DC7C6CD1D9287A5005945CB /* RadioUIVC.h */,
+			);
+			name = Radio;
+			sourceTree = "<group>";
+		};
+		6179C9931DAC22A800A28BE3 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				1DC7C6D81D9287A5005945CB /* AboutVC.m */,
+				1DC7C6D71D9287A5005945CB /* AboutVC.h */,
+				1DC7C6D91D9287A5005945CB /* AboutVC.xib */,
+			);
+			name = About;
 			sourceTree = "<group>";
 		};
 		AA27A66C551942B461D2B1DD /* Frameworks */ = {

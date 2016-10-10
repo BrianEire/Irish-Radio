@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C2098F1614F8BBF125392D7667B4D90CF128E606",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C2098F1614F8BBF125392D7667B4D90CF128E606" : 9223372036854775807,
+    "39393070A59695BE11C5C486C4E0501F75AA9844" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D77E3443-7DC8-4EB9-865E-30E4B76E53D8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C2098F1614F8BBF125392D7667B4D90CF128E606" : "Irish-Radio\/",
+    "39393070A59695BE11C5C486C4E0501F75AA9844" : "Irsh-rd-pp"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Radio Ireland App",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Radio Ireland App\/Radio Ireland App.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BDoyle123\/Irsh-rd-pp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "39393070A59695BE11C5C486C4E0501F75AA9844"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BrianEire\/Irish-Radio.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C2098F1614F8BBF125392D7667B4D90CF128E606"
+    }
+  ]
+}
