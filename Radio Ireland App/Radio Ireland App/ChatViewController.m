@@ -3,6 +3,8 @@
 #import "ChatDataHandler.h"
 #import "Constants.h"
 
+# define TABLE_CELL_Y_PADDING 27
+
 @interface ChatViewController ()
 
 @end
@@ -10,6 +12,7 @@
 @implementation ChatViewController
 {
 }
+
 
 - (void)viewDidLoad
 {
@@ -40,10 +43,12 @@
     
 }
 
+
 -(void) viewWillDisappear:(BOOL)animated
 {
     [self.chatMsgLoadingtimer pause];
 }
+
 
 -(void) viewWillAppear:(BOOL)animated
 {
@@ -51,6 +56,7 @@
     self.userNameTF.placeholder = NSLocalizedString(@"Enter a chat name", nil);
     [self.submitAccountButton setTitle:NSLocalizedString(@"Register", nil)forState:UIControlStateNormal];
 }
+
 
 - (void) viewDidAppear:(BOOL)animated
 {
@@ -72,24 +78,31 @@
     [super didReceiveMemoryWarning];
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary * myMessage = [self.myArray objectAtIndex:indexPath.row];
     
-    CGSize theSize = [[myMessage objectForKey:@"message"] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0] constrainedToSize:CGSizeMake(300, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return theSize.height + 27;
+    CGRect textRect = [[myMessage objectForKey:@"message"] boundingRectWithSize:CGSizeMake(300, FLT_MAX)
+                                                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                                                     attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
+                                                                        context:nil];
+    CGSize size = textRect.size;
+    return size.height + TABLE_CELL_Y_PADDING;
 }
+
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.myArray count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -141,28 +154,36 @@
             }
             else if (view.tag == 11)
             {
-                CGSize theSize = [[myMessage objectForKey:@"message"] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0] constrainedToSize:CGSizeMake(300, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+                CGRect textRect = [[myMessage objectForKey:@"message"] boundingRectWithSize:CGSizeMake(300, FLT_MAX)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
+                                                     context:nil];
+                CGSize size = textRect.size;
                 view.text = [myMessage objectForKey:@"message"];
-                view.frame = CGRectMake(10, 22, theSize.width, theSize.height);
+                view.frame = CGRectMake(10, 22, size.width, size.height);
             }
         }
     }
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
+
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     return YES;
 }
 
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     return YES;
 }
+
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
@@ -178,15 +199,18 @@
     self.view.frame = CGRectOffset(self.view.frame, 0, -self.keyBoardHeight);
 }
 
+
 -(void)keyboardDidHide:(NSNotification *)notification
 {
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
 }
+
 
 -(void) showChatMessageUI
 {
@@ -202,6 +226,7 @@
     }
 }
 
+
 -(void) hideKeyboardAndSlideDownUI:(id) theActiveUIObject
 {
     [theActiveUIObject resignFirstResponder];
@@ -210,6 +235,7 @@
         self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
     }
 }
+
 
 -(IBAction)CancelMessage
 {
@@ -222,6 +248,7 @@
     }
 }
 
+
 -(void) scrollTableToBottom
 {
     if (self.myTableView.contentSize.height > self.myTableView.frame.size.height)
@@ -231,11 +258,13 @@
     }
 }
 
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return (newLength > 20) ? NO : YES;
 }
+
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -265,6 +294,7 @@
         
     }];
 }
+
 
 - (IBAction)sendNewMessage:(id)sender
 {
@@ -325,6 +355,7 @@
         
     }];
 }
+
 
 - (void)loadChatData
 {
