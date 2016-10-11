@@ -16,9 +16,7 @@
     Reachability *internetReachable;
 }
 
-
-@synthesize radioUIView;
-
+//@synthesize radioUIView;
 
 - (void)viewDidLoad
 {
@@ -33,7 +31,7 @@
     
     [childViewController didMoveToParentViewController:self];
     
-    radioUIView.backgroundColor = UIColorFromRGB(AppColorDarkGray);
+    self.radioUIView.backgroundColor = UIColorFromRGB(AppColorDarkGray);
     self.radioStationTableView.sectionIndexColor = UIColorFromRGB(AppColorDarkGray);
     self.radioStationTableView.sectionIndexBackgroundColor = [UIColor clearColor];
     

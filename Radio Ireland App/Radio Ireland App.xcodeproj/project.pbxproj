@@ -224,13 +224,13 @@
 		6179C9921DAC228500A28BE3 /* Radio */ = {
 			isa = PBXGroup;
 			children = (
-				1D759CA11D9447FF00A8BECD /* RadioStationDataLoader.m */,
 				1D759CA01D9447FF00A8BECD /* RadioStationDataLoader.h */,
-				1DC7C6D61D9287A5005945CB /* Radio.m */,
+				1D759CA11D9447FF00A8BECD /* RadioStationDataLoader.m */,
 				1DC7C6D51D9287A5005945CB /* Radio.h */,
-				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
-				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
+				1DC7C6D61D9287A5005945CB /* Radio.m */,
 				1DC7C6D21D9287A5005945CB /* RadioViewController.h */,
+				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
+				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
 				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
 				1DC7C6CB1D9287A5005945CB /* AudioPlayer.h */,
 				1DC7C6CC1D9287A5005945CB /* RadioUIVC.xib */,

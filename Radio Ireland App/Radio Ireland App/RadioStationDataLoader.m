@@ -9,12 +9,8 @@
 @implementation RadioStationDataLoader
 
 
-
-
-
 -(void) getRadioStationList:(void (^)(NSArray *data, NSDictionary *dictData))callback
 {
-    
     NSString *string = RadioStationListURL;
     NSURL *url = [NSURL URLWithString:string];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -23,7 +19,6 @@
     operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         NSXMLParser *XMLParser = (NSXMLParser *)responseObject;
         [XMLParser setShouldProcessNamespaces:YES];
         XMLParser.delegate = self;
@@ -39,11 +34,8 @@
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil];
         [alertView show];
-        
     }];
-    
     [operation start];
-    
 }
 
 
@@ -52,30 +44,27 @@
     self.radioStationList = [[NSMutableArray alloc]init];
 }
 
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    
     if([elementName isEqualToString:@"Radios"])
     {
     }
     else if([elementName isEqualToString:@"RadioL"])
     {
-        
         self.aRadio = [[Radio  alloc] init];
-        
         self.aRadio.stationID = [[attributeDict objectForKey:@"id"] integerValue];
     }
     else if([elementName isEqualToString:@"RadioN"])
     {
         self.aRadio = [[Radio  alloc] init];
-        
         self.aRadio.stationID = [[attributeDict objectForKey:@"id"] integerValue];
     }
     else
     {
     }
-    
 }
+
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
@@ -89,6 +78,7 @@
     }
     
 }
+
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
@@ -118,18 +108,14 @@
     }
     
     currentElementValue = nil;
-    
-    
 }
+
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser
 {
     self.alphabetizedDictionary = [CGLAlphabetizer alphabetizedDictionaryFromObjects:self.radioStationList usingKeyPath:@"stationName"];
     
     self.sectionIndexTitles = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:self.alphabetizedDictionary];
-    
-    //[self.myTableView reloadData];
-    
 }
 
 
