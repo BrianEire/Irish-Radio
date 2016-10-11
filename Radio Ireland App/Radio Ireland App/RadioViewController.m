@@ -13,10 +13,7 @@
 
 @implementation RadioViewController
 {
-    Reachability *internetReachable;
 }
-
-//@synthesize radioUIView;
 
 - (void)viewDidLoad
 {
@@ -41,27 +38,18 @@
 }
 
 
-- (void)loadRadioStationList
-{
-    [self.radioDataLoader getRadioStationList:^(NSArray *data, NSDictionary *dictData){
-        
-        self.alphabetizedDictionary = [[NSDictionary alloc] initWithDictionary:dictData];
-        self.sectionIndexTitles = [[NSArray alloc] initWithArray:data];
-     
-        [self.radioStationTableView reloadData];
-    }];
-}
-
-
+#pragma mark - TABLE Methods
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return self.sectionIndexTitles;
 }
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.sectionIndexTitles count];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -69,10 +57,19 @@
     return [self.alphabetizedDictionary[sectionIndexTitle] count];
 }
 
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return self.sectionIndexTitles[section];
 }
+
+
+- (Radio *)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *sectionIndexTitle = self.sectionIndexTitles[indexPath.section];
+    return self.alphabetizedDictionary[sectionIndexTitle][indexPath.row];
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
@@ -86,11 +83,6 @@
     }
 }
 
-- (Radio *)objectAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *sectionIndexTitle = self.sectionIndexTitles[indexPath.section];
-    return self.alphabetizedDictionary[sectionIndexTitle][indexPath.row];
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,12 +108,9 @@
         descriptionLabel.textColor = UIColorFromRGB(AppColorDarkGray);
         descriptionLabel.tag = 11;
         [cell.contentView addSubview: descriptionLabel];
-
     }
-    
     else
     {
-        
         for (UILabel* view in [cell.contentView subviews])
         {
             if (view.tag == 10)  //Condition if that view belongs to any specific class
@@ -133,29 +122,37 @@
                 view.text = myRadio.radioGenres;
             }
         }
-        
     }
-    
     return cell;
 }
-
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Radio * myRadio = [self objectAtIndexPath:indexPath];
- 
     [self.radioStreamPlayer playStream:myRadio];
 }
 
 
+#pragma mark - Load Data
+- (void)loadRadioStationList
+{
+    [self.radioDataLoader getRadioStationList:^(NSArray *data, NSDictionary *dictData){
+        
+        self.alphabetizedDictionary = [[NSDictionary alloc] initWithDictionary:dictData];
+        self.sectionIndexTitles = [[NSArray alloc] initWithArray:data];
+        
+        [self.radioStationTableView reloadData];
+    }];
+}
+
+
+#pragma mark - Reachability
 - (void)testInternetConnection
 {
-    internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
-    
+    self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
     __weak typeof(self) weakSelf = self;
-    
-    internetReachable.reachableBlock = ^(Reachability*reach)
+    self.internetReachable.reachableBlock = ^(Reachability*reach)
     {
         __strong typeof(self) strongSelf = weakSelf;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -163,28 +160,19 @@
         });
     };
 
-    internetReachable.unreachableBlock = ^(Reachability*reach)
+    self.internetReachable.unreachableBlock = ^(Reachability*reach)
     {
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                                message:@"Internet Connection is NOT working. Please try again later."
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Internet Connection", nil)
+                                                message:NSLocalizedString(@"Internet Connection is NOT working. Please try again later.", nil)
                                                                delegate:nil
-                                                      cancelButtonTitle:@"Ok"
+                                                      cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                       otherButtonTitles:nil];
             [alertView show];
         });
     };
     
-    [internetReachable startNotifier];
-    
-    if ([internetReachable isReachable])
-    {
-    }
-    else
-    {
-    }
+    [self.internetReachable startNotifier];
 }
 
 

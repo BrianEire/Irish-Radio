@@ -13,18 +13,16 @@
     {
         return nil;
     }
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
     self.userIsRegistered = [defaults boolForKey:@"userIsRegistered"];
     
      if (self.userIsRegistered)
      {
          self.savedUserName = [defaults objectForKey:@"savedUserName"];
      }
-    
     return self;
 }
+
 
 - (void)registerUserName:(NSString*)userName andCallback:(void (^)(int))callback
 {
@@ -92,6 +90,22 @@
 {
     NSUUID *oNSUUID = [[UIDevice currentDevice] identifierForVendor];
     NSString *UDIDstring = [NSString stringWithString:[oNSUUID UUIDString]];
+    
+    if ([chatMsg length] < 2)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Message", nil)
+                                                        message:NSLocalizedString(@"Messages must be atleast 2 characters long", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+        
+        callback((int) userNameTooShort);
+        
+        return;
+    }
+    
+    
     
     NSDictionary *parameters2 = [NSDictionary dictionaryWithObjectsAndKeys: UDIDstring, @"udid", self.savedUserName, @"name", @"clubname", @"clubname", chatMsg, @"message", @"some_secret", @"secret", nil];
     

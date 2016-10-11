@@ -20,3 +20,5 @@
 "Name" = "Name";
 "Enter a chat name" = "Enter a chat name";
 "Register" = "Register";
+"Internet Connection" = "Internet Connection";
+"Internet Connection is NOT working. Please try again later" = "Internet Connection is NOT working. Please try again later";

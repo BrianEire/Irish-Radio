@@ -5,7 +5,6 @@
 {
 }
 
-
 @property (readonly, nonatomic, assign, getter = isStreaming) BOOL streaming;
 @property (readonly, nonatomic, assign, getter = isReadyToStream) BOOL readyToStream;
 @property (assign) double bufferLength;

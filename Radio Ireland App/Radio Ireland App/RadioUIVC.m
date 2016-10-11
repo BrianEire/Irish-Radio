@@ -1,6 +1,5 @@
 #import "RadioUIVC.h"
 #import "AudioPlayer.h"
-//#import "DTShapeView.h"
 #import "DTShapeButton.h"
 #import "NSTimer+PausableTimer.h"
 #import "CATransaction+AnimateWithDuration.h"
@@ -9,24 +8,36 @@
 
 @interface RadioUIVC ()
 
-@property (weak, nonatomic) IBOutlet DTShapeButton *recordButton;
-@property (weak, nonatomic) IBOutlet DTShapeButton *TriButton;
-@property (weak, nonatomic) AudioPlayer *radioStreamPlayer;
+@property (strong, nonatomic) IBOutlet DTShapeButton *recordButton;
+@property (strong, nonatomic) IBOutlet DTShapeButton *TriButton;
+@property (strong, nonatomic) AudioPlayer *radioStreamPlayer;
 @end
 
 @implementation RadioUIVC
 {
 }
 
+#pragma mark - View Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.radioStreamPlayer = [AudioPlayer sharedManager];
-
     [self setupRadioUI];
 }
 
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [self.animationTimer resume];
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.animationTimer pause];
+}
+
+#pragma mark - Radio UI Methods
 - (void)setupRadioUI
 {
     [self.stationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
@@ -54,15 +65,6 @@
     [self.TriButton.shape.shapeLayer addAnimation:spinAnimation forKey:@"spin animation"];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [self.animationTimer resume];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [self.animationTimer pause];
-}
 
 -(void)animateRadioUI
 {
@@ -109,6 +111,7 @@
 }
 
 
+#pragma mark - Button Methods
 - (IBAction)playPauseButtonTapped:(id)sender
 {
     if (!self.radioStreamPlayer.readyToStream)

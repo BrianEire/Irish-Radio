@@ -30,6 +30,7 @@ void *kDidFailKVO = &kDidFailKVO;
 {
 }
 
+
 + (AudioPlayer *)sharedManager {
     static AudioPlayer *_sharedInstance = nil;
     static dispatch_once_t oncePredicate;
@@ -40,12 +41,12 @@ void *kDidFailKVO = &kDidFailKVO;
     return _sharedInstance;
 }
 
+
 - (id)init
 {
     if (self = [super init])
     {
         _streaming = NO;
-        
         _rcc = [MPRemoteCommandCenter sharedCommandCenter];
         
         MPRemoteCommand *pauseCommand = [_rcc pauseCommand];
@@ -61,88 +62,17 @@ void *kDidFailKVO = &kDidFailKVO;
     return self;
 }
 
--(void) pauseEvent
-{
-    [_rcc.playCommand setEnabled:YES];
-    [_rcc.pauseCommand setEnabled:NO];
-    [self.player pause];
-    _streaming = NO;
-}
-
--(void) playEvent
-{
-    [self.player play];
-    [_rcc.playCommand setEnabled:NO];
-    [_rcc.pauseCommand setEnabled:YES];
-    _streaming = YES;
-    _readyToStream = YES;
-}
-
-#pragma mark - Timer
 
 #pragma mark - AVAudioPlayerDelegate
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
-{
-}
+{}
+
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
-{
-}
+{}
 
 
--(void)playStream:(Radio*) theRadioStation
-{
-    self.songName = @" ";
-    
-    _readyToStream = YES;
-    _radioStationToPlay = theRadioStation;
-    
-    if (self.player != nil)
-    {
-        [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
-        [self.player removeObserver:self forKeyPath:@"currentItem.status"];
-        [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
-    }
-    
-    self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]];
-    
-    [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
-    
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    
-    NSError *setCategoryError = nil;
-    if (![session setCategory:AVAudioSessionCategoryPlayback
-                  withOptions:kAudioSessionCategory_MediaPlayback
-                        error:&setCategoryError])
-    {
-    }
-    
-    [self.player addObserver:self forKeyPath:@"currentItem.status"              options:NSKeyValueObservingOptionNew context:kStatusDidChangeKVO];
-    [self.player addObserver:self forKeyPath:@"currentItem.loadedTimeRanges"    options:NSKeyValueObservingOptionNew context:kTimeRangesKVO];
-    
-    [self.player play];
-    _streaming= YES;
-    
-}
-
-
-
--(void) pauseStreamer
-{
-    [self.player pause];
-    _streaming= NO;
-}
-
--(void) resumeStreamer
-{
-    [self.player play];
-    _streaming= YES;
-    
-}
-
-
+#pragma mark - Stream KVO
 - (void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object
                          change:(NSDictionary*)change context:(void*)context
 {
@@ -181,4 +111,75 @@ void *kDidFailKVO = &kDidFailKVO;
 
 
 
+#pragma mark - Stream Control Methods
+-(void)playStream:(Radio*) theRadioStation
+{
+    self.songName = @" ";
+    
+    _readyToStream = YES;
+    _radioStationToPlay = theRadioStation;
+    
+    if (self.player != nil)
+    {
+        [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
+        [self.player removeObserver:self forKeyPath:@"currentItem.status"];
+        [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
+    }
+    
+    self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]];
+    
+    [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
+    
+    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError = nil;
+    if (![session setCategory:AVAudioSessionCategoryPlayback
+                  withOptions:kAudioSessionCategory_MediaPlayback
+                        error:&setCategoryError])
+    {
+    }
+    
+    [self.player addObserver:self forKeyPath:@"currentItem.status"              options:NSKeyValueObservingOptionNew context:kStatusDidChangeKVO];
+    [self.player addObserver:self forKeyPath:@"currentItem.loadedTimeRanges"    options:NSKeyValueObservingOptionNew context:kTimeRangesKVO];
+    
+    [self.player play];
+    _streaming= YES;
+    
+}
+
+
+-(void) pauseEvent
+{
+    [_rcc.playCommand setEnabled:YES];
+    [_rcc.pauseCommand setEnabled:NO];
+    [self.player pause];
+    _streaming = NO;
+}
+
+
+-(void) playEvent
+{
+    [self.player play];
+    [_rcc.playCommand setEnabled:NO];
+    [_rcc.pauseCommand setEnabled:YES];
+    _streaming = YES;
+    _readyToStream = YES;
+}
+
+
+-(void) pauseStreamer
+{
+    [self.player pause];
+    _streaming= NO;
+}
+
+
+-(void) resumeStreamer
+{
+    [self.player play];
+    _streaming= YES;
+    
+}
 @end

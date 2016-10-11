@@ -38,6 +38,7 @@
     [operation start];
 }
 
+#pragma mark - XML Parser
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
@@ -117,9 +118,6 @@
     
     self.sectionIndexTitles = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:self.alphabetizedDictionary];
 }
-
-
-
 
 
 @end

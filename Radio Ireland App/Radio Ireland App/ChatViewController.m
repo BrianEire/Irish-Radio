@@ -13,7 +13,7 @@
 {
 }
 
-
+#pragma mark - View Lifecycle Methods
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -38,9 +38,6 @@
 
     self.chatMsgLoadingtimer = [NSTimer timerWithTimeInterval:10 target:self selector:@selector(updateChatMessages) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.chatMsgLoadingtimer forMode:NSDefaultRunLoopMode];
-    
-
-    
 }
 
 
@@ -67,8 +64,8 @@
         [self.myTableView setContentOffset:offset animated:YES];
     }
     
-    [self hideKeyboardAndSlideDownUI:self.userNameTF];
-    [self hideKeyboardAndSlideDownUI:self.messageTV];
+    //[self hideKeyboardAndSlideDownUI:self.userNameTF];
+   // [self hideKeyboardAndSlideDownUI:self.messageTV];
     
     [self.chatMsgLoadingtimer resume];
 }
@@ -79,6 +76,7 @@
 }
 
 
+#pragma mark - Table Methods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary * myMessage = [self.myArray objectAtIndex:indexPath.row];
@@ -111,7 +109,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
    if (cell == nil)
     {
-      
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
         
@@ -173,20 +170,11 @@
 }
 
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    return YES;
-}
-
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    return YES;
-}
-
-
+#pragma mark - Keyboard Methods
 - (void)keyboardDidShow:(NSNotification *)notification
 {
+    NSLog(@"KB DID Show");
+    
     NSDictionary* info = [notification userInfo];
     self.keyBoardHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     if (self.view.frame.origin.y < 40)
@@ -197,45 +185,40 @@
     }
   
     self.view.frame = CGRectOffset(self.view.frame, 0, -self.keyBoardHeight);
+     
 }
 
 
 -(void)keyboardDidHide:(NSNotification *)notification
 {
-}
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
-
-
--(void) showChatMessageUI
-{
-    if (self.chatHandler.userIsRegistered)
+    NSLog(@"KB DID HIDE");
+    //[theActiveUIObject resignFirstResponder];
+   if (self.view.frame.origin.y < 0)
     {
-        self.registerView.layer.hidden = true;
-        self.sendMessageView.layer.hidden = false;
-    }
-    else
-    {
-        self.registerView.layer.hidden = false;
-        self.sendMessageView.layer.hidden = true;
+        self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
+       NSLog(@"2Y : %f",self.view.frame.origin.y);
     }
 }
 
 
 -(void) hideKeyboardAndSlideDownUI:(id) theActiveUIObject
 {
-    [theActiveUIObject resignFirstResponder];
+    
+   // [theActiveUIObject resignFirstResponder];
+    /*
+    NSLog(@"Y : %f",self.view.frame.origin.y);
+    
     if (self.view.frame.origin.y < 0)
     {
         self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
+        NSLog(@"2Y : %f",self.view.frame.origin.y);
     }
+    else
+    {
+        NSLog(@"Not moving FRAME");
+    }
+     */
 }
-
 
 -(IBAction)CancelMessage
 {
@@ -259,6 +242,7 @@
 }
 
 
+#pragma mark - TextView and Textfield
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
@@ -272,8 +256,26 @@
 }
 
 
-#pragma mark - Messaging Functions
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+
+#pragma mark - Messaging Functions
 -(void) updateChatMessages
 {
     if ([self.myArray count] == 0)
@@ -298,7 +300,7 @@
 
 - (IBAction)sendNewMessage:(id)sender
 {
-    [self hideKeyboardAndSlideDownUI:self.messageTV];
+   // [self hideKeyboardAndSlideDownUI:self.messageTV];
     
     [self.chatHandler sendChatMessage:self.messageTV.text andCallback:^(BOOL result){
         
@@ -351,7 +353,7 @@
         }
         
         [self showChatMessageUI];
-        [self hideKeyboardAndSlideDownUI:self.userNameTF];
+        //[self hideKeyboardAndSlideDownUI:self.userNameTF];
         
     }];
 }
@@ -367,6 +369,21 @@
         [self.myTableView reloadData];
         [self scrollTableToBottom];
     }];
+}
+
+
+-(void) showChatMessageUI
+{
+    if (self.chatHandler.userIsRegistered)
+    {
+        self.registerView.layer.hidden = true;
+        self.sendMessageView.layer.hidden = false;
+    }
+    else
+    {
+        self.registerView.layer.hidden = false;
+        self.sendMessageView.layer.hidden = true;
+    }
 }
 
 @end

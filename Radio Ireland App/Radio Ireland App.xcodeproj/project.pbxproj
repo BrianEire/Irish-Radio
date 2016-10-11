@@ -212,11 +212,11 @@
 		6179C9911DAC224300A28BE3 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				1DC7C6D41D9287A5005945CB /* ChatViewController.h */,
 				1DC7C6D01D9287A5005945CB /* ChatViewController.m */,
 				1DC7C6D11D9287A5005945CB /* ChatViewController.xib */,
-				1DC7C6D41D9287A5005945CB /* ChatViewController.h */,
-				1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */,
 				1DC7C6CE1D9287A5005945CB /* ChatDataHandler.h */,
+				1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -231,11 +231,11 @@
 				1DC7C6D21D9287A5005945CB /* RadioViewController.h */,
 				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
 				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
-				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
 				1DC7C6CB1D9287A5005945CB /* AudioPlayer.h */,
-				1DC7C6CC1D9287A5005945CB /* RadioUIVC.xib */,
-				1DC7C6C91D9287A5005945CB /* RadioUIVC.m */,
+				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
 				1DC7C6CD1D9287A5005945CB /* RadioUIVC.h */,
+				1DC7C6C91D9287A5005945CB /* RadioUIVC.m */,
+				1DC7C6CC1D9287A5005945CB /* RadioUIVC.xib */,
 			);
 			name = Radio;
 			sourceTree = "<group>";
