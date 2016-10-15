@@ -13,5 +13,6 @@
 
 - (void)setupRadioUI;
 - (IBAction)playPauseButtonTapped:(id)sender;
+- (IBAction)btn;
 
 @end

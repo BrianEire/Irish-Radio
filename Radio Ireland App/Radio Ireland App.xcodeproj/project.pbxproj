@@ -265,12 +265,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DC7C6C31D928599005945CB /* Build configuration list for PBXNativeTarget "Radio Ireland App" */;
 			buildPhases = (
-				888E53325A071481DB629BAE /* 📦 Check Pods Manifest.lock */,
+				888E53325A071481DB629BAE /* [CP] Check Pods Manifest.lock */,
 				1DC7C69C1D928599005945CB /* Sources */,
 				1DC7C69D1D928599005945CB /* Frameworks */,
 				1DC7C69E1D928599005945CB /* Resources */,
-				400F795187E07B3A118FC8A2 /* 📦 Embed Pods Frameworks */,
-				DA2B66718BA8032E35A9A3D2 /* 📦 Copy Pods Resources */,
+				400F795187E07B3A118FC8A2 /* [CP] Embed Pods Frameworks */,
+				DA2B66718BA8032E35A9A3D2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -363,14 +363,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		400F795187E07B3A118FC8A2 /* 📦 Embed Pods Frameworks */ = {
+		400F795187E07B3A118FC8A2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,14 +378,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Radio Ireland App/Pods-Radio Ireland App-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		888E53325A071481DB629BAE /* 📦 Check Pods Manifest.lock */ = {
+		888E53325A071481DB629BAE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,14 +393,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DA2B66718BA8032E35A9A3D2 /* 📦 Copy Pods Resources */ = {
+		DA2B66718BA8032E35A9A3D2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,6 +561,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = B9458NJGQ6;
 				INFOPLIST_FILE = "Radio Ireland App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -576,6 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = B9458NJGQ6;
 				INFOPLIST_FILE = "Radio Ireland App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

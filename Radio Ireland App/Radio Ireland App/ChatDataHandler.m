@@ -1,6 +1,6 @@
 #import "ChatDataHandler.h"
 #import <AFNetworking/AFNetworking.h>
-#import "AFHTTPRequestOperation.h"
+//#import "AFHTTPRequestOperation.h"
 #import "Constants.h"
 
 @implementation ChatDataHandler
@@ -37,7 +37,7 @@
                                               otherButtonTitles:nil];
         [alert show];
         
-        callback((int) userNameTooShort);
+        callback((int) UserNameTooShort);
         
         return;
     }
@@ -52,7 +52,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer]; //[AFHTTPResponseSerializer serializer];
     
     [manager GET:ChatUserNameRegURL
-      parameters:parameters2
+      parameters:parameters2 progress:nil
          success:^(NSURLSessionDataTask *task, id responseObject)
      {
          
@@ -70,18 +70,18 @@
              [defaults setBool:YES forKey:@"userIsRegistered"];
              [defaults synchronize];
              
-             callback((int) userNameRegistered);
+             callback((int) UserNameRegistered);
 
          }
          else
          {
-             callback((int) userNameRegisterFailed);
+             callback((int) UserNameRegisterFailed);
          }
          
      }
          failure:^(NSURLSessionDataTask *task, NSError *error) {
              
-             callback((int) userNameRegisterFailed);
+             callback((int) UserNameRegisterFailed);
          }];
 }
 
@@ -100,7 +100,7 @@
                                               otherButtonTitles:nil];
         [alert show];
         
-        callback((int) userNameTooShort);
+        callback((int) UserNameTooShort);
         
         return;
     }
@@ -114,7 +114,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:ChatSendMsgURL
-      parameters:parameters2
+      parameters:parameters2 progress:nil
          success:^(NSURLSessionDataTask *task, id responseObject)
      {
          callback((BOOL) YES);
@@ -128,33 +128,24 @@
 
 - (void)getChatMessages:(void (^)(NSArray *))callback
 {
-
-    NSString *urlString = [NSString stringWithString:ChatLoadAllMsgURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+    [manager GET:ChatLoadAllMsgURL
+      parameters:nil progress:nil
+     
+         success:^(NSURLSessionDataTask *task, id responseObject)
      {
          callback((NSArray*) responseObject);
      }
-                                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error Retrieving Chat", nil)
                                                              message:[error localizedDescription]
                                                             delegate:nil
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                    otherButtonTitles:nil];
-         [alertView show];
-         
      }];
-    
-    [operation start];
 }
 
 
@@ -166,7 +157,8 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [manager GET:ChatUpdateChatURL
-      parameters:parameters2
+      parameters:parameters2 progress:nil
+     
          success:^(NSURLSessionDataTask *task, id responseObject)
      {
          callback((NSArray*) responseObject);

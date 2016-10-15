@@ -1,5 +1,5 @@
 #import <AFNetworking/AFNetworking.h>
-#import "AFHTTPRequestOperation.h"
+//#import "AFHTTPRequestOperation.h"
 #import "Radio.h"
 #import "CGLAlphabetizer.h"
 #import "Reachability.h"
@@ -9,6 +9,35 @@
 @implementation RadioStationDataLoader
 
 
+
+-(void) getRadioStationList:(void (^)(NSArray *data, NSDictionary *dictData))callback
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    
+    [manager GET:RadioStationListURL
+      parameters:nil progress:nil
+     
+         success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         NSXMLParser *XMLParser = (NSXMLParser *)responseObject;
+         [XMLParser setShouldProcessNamespaces:YES];
+         XMLParser.delegate = self;
+         [XMLParser parse];
+         
+         callback((NSArray*)self.sectionIndexTitles, (NSDictionary*)self.alphabetizedDictionary);
+     }
+         failure:^(NSURLSessionDataTask *task, NSError *error)
+     {
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Radio List"
+                                                             message:[error localizedDescription]
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"Ok"
+                                                   otherButtonTitles:nil];
+         [alertView show];
+     }];
+}
+/*
 -(void) getRadioStationList:(void (^)(NSArray *data, NSDictionary *dictData))callback
 {
     NSString *string = RadioStationListURL;
@@ -37,7 +66,7 @@
     }];
     [operation start];
 }
-
+*/
 #pragma mark - XML Parser
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser

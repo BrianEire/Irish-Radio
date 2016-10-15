@@ -2,7 +2,7 @@
 # platform :ios, ‘7.1’
 
 target ‘Radio Ireland App’ do
-pod 'AFNetworking', '~> 2.5.4’
+pod 'AFNetworking'
 pod 'CGLAlphabetizer', '~> 0.1'
 pod 'Shapes', '~> 1.0.2'
 pod 'MarqueeLabel', '~> 1.4.1'

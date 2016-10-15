@@ -71,7 +71,7 @@
     double bufferPercentage = self.radioStreamPlayer.bufferLength / MaxBufferLength;
     double height = MaxBufferHeight * (bufferPercentage);
 
-    self.bufferImage.frame = CGRectMake(203, 63-height , 36, height); 
+    self.bufferImage.frame = CGRectMake(202, 63-height , 36, height);
     self.bufferImage.hidden = NO;
 
     if ([self.radioStreamPlayer.radioStationToPlay.stationName isEqual: [NSNull null]])
@@ -114,6 +114,9 @@
 #pragma mark - Button Methods
 - (IBAction)playPauseButtonTapped:(id)sender
 {
+    
+    NSLog(@"playPauseButtonTapped");
+    
     if (!self.radioStreamPlayer.readyToStream)
     {
         return;
@@ -131,6 +134,11 @@
         [self.radioStreamPlayer pauseStreamer];
         self.TriButton.hidden = YES;
     }
+}
+
+- (IBAction)btn
+{
+    NSLog(@"btn");
 }
 
 @end

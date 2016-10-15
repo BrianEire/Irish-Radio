@@ -63,10 +63,6 @@
         CGPoint offset = CGPointMake(0, self.myTableView.contentSize.height -     self.myTableView.frame.size.height);
         [self.myTableView setContentOffset:offset animated:YES];
     }
-    
-    //[self hideKeyboardAndSlideDownUI:self.userNameTF];
-   // [self hideKeyboardAndSlideDownUI:self.messageTV];
-    
     [self.chatMsgLoadingtimer resume];
 }
 
@@ -145,7 +141,7 @@
         
         for (UILabel* view in [cell.contentView subviews])
         {
-            if (view.tag == 10)  //Condition if that view belongs to any specific class
+            if (view.tag == 10)
             {
                 view.text = [NSString stringWithFormat:@"%@ %@ @ %@",NSLocalizedString(@"by", nil),[myMessage objectForKey:@"name"], result];
             }
@@ -173,8 +169,6 @@
 #pragma mark - Keyboard Methods
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    NSLog(@"KB DID Show");
-    
     NSDictionary* info = [notification userInfo];
     self.keyBoardHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
     if (self.view.frame.origin.y < 40)
@@ -183,42 +177,18 @@
         frame.origin.y = 40;
         self.view.frame = frame;
     }
-  
     self.view.frame = CGRectOffset(self.view.frame, 0, -self.keyBoardHeight);
-     
 }
 
 
 -(void)keyboardDidHide:(NSNotification *)notification
 {
-    NSLog(@"KB DID HIDE");
-    //[theActiveUIObject resignFirstResponder];
    if (self.view.frame.origin.y < 0)
     {
         self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
-       NSLog(@"2Y : %f",self.view.frame.origin.y);
     }
 }
 
-
--(void) hideKeyboardAndSlideDownUI:(id) theActiveUIObject
-{
-    
-   // [theActiveUIObject resignFirstResponder];
-    /*
-    NSLog(@"Y : %f",self.view.frame.origin.y);
-    
-    if (self.view.frame.origin.y < 0)
-    {
-        self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
-        NSLog(@"2Y : %f",self.view.frame.origin.y);
-    }
-    else
-    {
-        NSLog(@"Not moving FRAME");
-    }
-     */
-}
 
 -(IBAction)CancelMessage
 {
@@ -300,8 +270,6 @@
 
 - (IBAction)sendNewMessage:(id)sender
 {
-   // [self hideKeyboardAndSlideDownUI:self.messageTV];
-    
     [self.chatHandler sendChatMessage:self.messageTV.text andCallback:^(BOOL result){
         
         [self CancelMessage];
@@ -321,7 +289,7 @@
 {
     [self.chatHandler registerUserName:self.userNameTF.text andCallback:^(int result){
         
-        if (result == userNameRegistered)
+        if (result == UserNameRegistered)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", nil)
                                                                 message:NSLocalizedString(@"Chat name created.", nil)
@@ -330,7 +298,7 @@
                                                       otherButtonTitles:nil];
             [alertView show];
         }
-        else if (result == userNameTooShort)
+        else if (result == UserNameTooShort)
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"User Name", nil)
                                                             message:NSLocalizedString(@"User Name must be atleast 2 characters long", nil)
@@ -339,22 +307,20 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }
-        else if (result == userNameRegisterFailed)
+        else if (result == UserNameRegisterFailed)
         {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                                                 message:NSLocalizedString(@"Could not create this name, please try again.", nil)
-                                                               delegate:nil
+                                                    delegate:nil
                                                       cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                       otherButtonTitles:nil];
             [alertView show];
         }
-        else if (result == userNameX)
+        else if (result == UserNameX)
         {
         }
         
         [self showChatMessageUI];
-        //[self hideKeyboardAndSlideDownUI:self.userNameTF];
-        
     }];
 }
 

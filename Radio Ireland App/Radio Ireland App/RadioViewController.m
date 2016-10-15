@@ -23,8 +23,12 @@
 
     UIViewController *childViewController = [[RadioUIVC alloc]init];
     
+    
+    [self.radioUIView2 addSubview:childViewController.view];
+    
     [self addChildViewController:childViewController];
-    [self.radioUIView addSubview:childViewController.view];
+    [self.radioUIView2 addSubview:childViewController.view];
+    //[self.radioUIView addSubview:childViewController.view];
     
     [childViewController didMoveToParentViewController:self];
     
@@ -35,6 +39,23 @@
     [self testInternetConnection];
     
     self.radioDataLoader = [[RadioStationDataLoader alloc] init];
+    
+    
+    //CGRect *myrect = self.radioUIView2.frame.origin
+    
+   // NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView2.frame.origin.x, self.radioUIView2.frame.origin.y, self.radioUIView2.frame.size.width ,self.radioUIView2.frame.size.height );
+    
+   // NSLog(@"vc2 X:%f   vc2 Y:%f   vc2 Width:%f   vc2 Height:%f  ",childViewController.view.frame.origin.x, childViewController.view.frame.origin.y, childViewController.view.frame.size.width ,childViewController.view.frame.size.height );
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+   // NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView2.frame.origin.x, self.radioUIView2.frame.origin.y, self.radioUIView2.frame.size.width ,self.radioUIView2.frame.size.height );
+}
+
+-(void) viewDidLayoutSubviews
+{
+        NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView2.frame.origin.x, self.radioUIView2.frame.origin.y, self.radioUIView2.frame.size.width ,self.radioUIView2.frame.size.height );
 }
 
 

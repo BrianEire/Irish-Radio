@@ -1,4 +1,5 @@
 #import "AboutVC.h"
+#import "Constants.h"
 
 @interface AboutVC ()
 
@@ -9,6 +10,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.aboutLabel.textColor = UIColorFromRGB(AppColorDarkGray);
 }
 
 - (void)didReceiveMemoryWarning {

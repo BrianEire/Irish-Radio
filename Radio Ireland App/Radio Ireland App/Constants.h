@@ -12,10 +12,10 @@ alpha:1.0]
 #define MaxBufferLength 78
 #define MaxBufferHeight 56
 
-#define userNameRegistered 0
-#define userNameRegisterFailed 1
-#define userNameTooShort 2
-#define userNameX 3
+#define UserNameRegistered 0
+#define UserNameRegisterFailed 1
+#define UserNameTooShort 2
+#define UserNameX 3
 
 @interface Constants : NSObject
 
