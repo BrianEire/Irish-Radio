@@ -12,7 +12,6 @@
 @property (nonatomic, strong) NSTimer *animationTimer;
 
 - (void)setupRadioUI;
-- (IBAction)playPauseButtonTapped:(id)sender;
-- (IBAction)btn;
+- (IBAction)playPauseButtonTapped;
 
 @end

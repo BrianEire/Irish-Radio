@@ -112,7 +112,7 @@
 
 
 #pragma mark - Button Methods
-- (IBAction)playPauseButtonTapped:(id)sender
+- (IBAction)playPauseButtonTapped
 {
     
     NSLog(@"playPauseButtonTapped");
@@ -136,9 +136,6 @@
     }
 }
 
-- (IBAction)btn
-{
-    NSLog(@"btn");
-}
+
 
 @end

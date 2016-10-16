@@ -23,14 +23,14 @@
 		1DC7C6E01D9287A5005945CB /* ChatDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */; };
 		1DC7C6E11D9287A5005945CB /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D01D9287A5005945CB /* ChatViewController.m */; };
 		1DC7C6E21D9287A5005945CB /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D11D9287A5005945CB /* ChatViewController.xib */; };
-		1DC7C6E31D9287A5005945CB /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D31D9287A5005945CB /* RadioViewController.m */; };
 		1DC7C6E41D9287A5005945CB /* Radio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D61D9287A5005945CB /* Radio.m */; };
 		1DC7C6E51D9287A5005945CB /* AboutVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D81D9287A5005945CB /* AboutVC.m */; };
 		1DC7C6E61D9287A5005945CB /* AboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC7C6D91D9287A5005945CB /* AboutVC.xib */; };
 		1DC7C6E71D9287A5005945CB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6DA1D9287A5005945CB /* Reachability.m */; };
-		1DC7C6E81D9287A5005945CB /* RadioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */; };
 		1DC7C6FF1D928A53005945CB /* CAPSPageMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DC7C6FE1D928A53005945CB /* CAPSPageMenu.m */; };
 		1DDEC1151D93FCA300D3AAAB /* NSTimer+PausableTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDEC1141D93FCA300D3AAAB /* NSTimer+PausableTimer.m */; };
+		61C915E01DB4035D00F54CCF /* RadioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C915DE1DB4035D00F54CCF /* RadioViewController.m */; };
+		61C915E11DB4035D00F54CCF /* RadioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 61C915DF1DB4035D00F54CCF /* RadioViewController.xib */; };
 		A02F6A0211C263A0BB375EC5 /* libPods-Radio Ireland App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B889EA6847213400FB3C199 /* libPods-Radio Ireland App.a */; };
 /* End PBXBuildFile section */
 
@@ -72,8 +72,6 @@
 		1DC7C6CF1D9287A5005945CB /* ChatDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDataHandler.m; sourceTree = "<group>"; };
 		1DC7C6D01D9287A5005945CB /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		1DC7C6D11D9287A5005945CB /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
-		1DC7C6D21D9287A5005945CB /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
-		1DC7C6D31D9287A5005945CB /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
 		1DC7C6D41D9287A5005945CB /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		1DC7C6D51D9287A5005945CB /* Radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radio.h; sourceTree = "<group>"; };
 		1DC7C6D61D9287A5005945CB /* Radio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Radio.m; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 		1DC7C6D81D9287A5005945CB /* AboutVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutVC.m; sourceTree = "<group>"; };
 		1DC7C6D91D9287A5005945CB /* AboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutVC.xib; sourceTree = "<group>"; };
 		1DC7C6DA1D9287A5005945CB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioViewController.xib; sourceTree = "<group>"; };
 		1DC7C6DC1D9287A5005945CB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1DC7C6FD1D928A53005945CB /* CAPSPageMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAPSPageMenu.h; sourceTree = "<group>"; };
 		1DC7C6FE1D928A53005945CB /* CAPSPageMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAPSPageMenu.m; sourceTree = "<group>"; };
@@ -89,6 +86,9 @@
 		1DDEC1141D93FCA300D3AAAB /* NSTimer+PausableTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+PausableTimer.m"; sourceTree = "<group>"; };
 		3690B336448B212FF58BDE21 /* Pods-Radio Ireland App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Radio Ireland App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Radio Ireland App/Pods-Radio Ireland App.release.xcconfig"; sourceTree = "<group>"; };
 		43529FE8191ABB7147E18802 /* Pods-Radio Ireland App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Radio Ireland App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Radio Ireland App/Pods-Radio Ireland App.debug.xcconfig"; sourceTree = "<group>"; };
+		61C915DD1DB4035D00F54CCF /* RadioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioViewController.h; sourceTree = "<group>"; };
+		61C915DE1DB4035D00F54CCF /* RadioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadioViewController.m; sourceTree = "<group>"; };
+		61C915DF1DB4035D00F54CCF /* RadioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadioViewController.xib; sourceTree = "<group>"; };
 		9B889EA6847213400FB3C199 /* libPods-Radio Ireland App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Radio Ireland App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -224,13 +224,13 @@
 		6179C9921DAC228500A28BE3 /* Radio */ = {
 			isa = PBXGroup;
 			children = (
+				61C915DD1DB4035D00F54CCF /* RadioViewController.h */,
+				61C915DE1DB4035D00F54CCF /* RadioViewController.m */,
+				61C915DF1DB4035D00F54CCF /* RadioViewController.xib */,
 				1D759CA01D9447FF00A8BECD /* RadioStationDataLoader.h */,
 				1D759CA11D9447FF00A8BECD /* RadioStationDataLoader.m */,
 				1DC7C6D51D9287A5005945CB /* Radio.h */,
 				1DC7C6D61D9287A5005945CB /* Radio.m */,
-				1DC7C6D21D9287A5005945CB /* RadioViewController.h */,
-				1DC7C6D31D9287A5005945CB /* RadioViewController.m */,
-				1DC7C6DB1D9287A5005945CB /* RadioViewController.xib */,
 				1DC7C6CB1D9287A5005945CB /* AudioPlayer.h */,
 				1DC7C6CA1D9287A5005945CB /* AudioPlayer.m */,
 				1DC7C6CD1D9287A5005945CB /* RadioUIVC.h */,
@@ -344,12 +344,12 @@
 			files = (
 				1DC7C6DF1D9287A5005945CB /* RadioUIVC.xib in Resources */,
 				1DC7C6AF1D928599005945CB /* Main.storyboard in Resources */,
+				61C915E11DB4035D00F54CCF /* RadioViewController.xib in Resources */,
 				1DC7C6B41D928599005945CB /* LaunchScreen.xib in Resources */,
 				1DC7C6E21D9287A5005945CB /* ChatViewController.xib in Resources */,
 				1DC7C6E61D9287A5005945CB /* AboutVC.xib in Resources */,
 				1D6D68CE1DA04B210070FA15 /* Localizable.strings in Resources */,
 				1DC7C6B11D928599005945CB /* Images.xcassets in Resources */,
-				1DC7C6E81D9287A5005945CB /* RadioViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +428,7 @@
 				1DC7C6A91D928599005945CB /* AppDelegate.m in Sources */,
 				1DC7C6E51D9287A5005945CB /* AboutVC.m in Sources */,
 				1DC7C6E11D9287A5005945CB /* ChatViewController.m in Sources */,
-				1DC7C6E31D9287A5005945CB /* RadioViewController.m in Sources */,
+				61C915E01DB4035D00F54CCF /* RadioViewController.m in Sources */,
 				1DC7C6A61D928599005945CB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,4 +1,4 @@
-#import "RadioViewController.h"
+#import "RadioViewController2.h"
 #import "AudioPlayer.h"
 #import "Radio.h"
 #import "RadioUIVC.h"
@@ -7,12 +7,18 @@
 #import "RadioStationDataLoader.h"
 #import "Constants.h"
 
-@interface RadioViewController ()
+@interface RadioViewController2 ()
 @end
 
 
-@implementation RadioViewController
+@implementation RadioViewController2
 {
+}
+
+- (IBAction)btn
+{
+    NSLog(@"btn");
+    [self.radioUIViewController playPauseButtonTapped];
 }
 
 - (void)viewDidLoad
@@ -22,7 +28,9 @@
     self.radioStreamPlayer = [AudioPlayer sharedManager];
     
     self.radioUIViewController = [[RadioUIVC alloc]init];
+    //[self addChildViewController:self.radioUIViewController];
     [self.radioUIView addSubview:self.radioUIViewController.view];
+    
     self.radioUIViewController.view.frame = CGRectMake(0, 0,  self.radioUIView.frame.size.width,self.radioUIView.frame.size.height);
     
     [self addChildViewController:self.radioUIViewController];
@@ -36,6 +44,26 @@
     
     self.radioDataLoader = [[RadioStationDataLoader alloc] init];
     
+    
+    //CGRect *myrect = self.radioUIView2.frame.origin
+    
+    // NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView2.frame.origin.x, self.radioUIView2.frame.origin.y, self.radioUIView2.frame.size.width ,self.radioUIView2.frame.size.height );
+    
+    // NSLog(@"vc2 X:%f   vc2 Y:%f   vc2 Width:%f   vc2 Height:%f  ",childViewController.view.frame.origin.x, childViewController.view.frame.origin.y, childViewController.view.frame.size.width ,childViewController.view.frame.size.height );
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    // NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView2.frame.origin.x, self.radioUIView2.frame.origin.y, self.radioUIView2.frame.size.width ,self.radioUIView2.frame.size.height );
+}
+
+-(void) viewDidLayoutSubviews
+{
+    NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIView.frame.origin.x, self.radioUIView.frame.origin.y, self.radioUIView.frame.size.width ,self.radioUIView.frame.size.height );
+    
+     NSLog(@"X:%f   Y:%f   Width:%f   Height:%f  ",self.radioUIViewController.view.frame.origin.x, self.radioUIViewController.view.frame.origin.y, self.radioUIViewController.view.frame.size.width ,self.radioUIViewController.view.frame.size.height );
+    
+    // NSLog(@"vc2 X:%f   vc2 Y:%f   vc2 Width:%f   vc2 Height:%f  ",childViewController.view.frame.origin.x, childViewController.view.frame.origin.y, childViewController.view.frame.size.width ,childViewController.view.frame.size.height );
 }
 
 
@@ -160,17 +188,18 @@
             [strongSelf loadRadioStationList];
         });
     };
-
+    
     self.internetReachable.unreachableBlock = ^(Reachability*reach)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Internet Connection", nil)
-                                                message:NSLocalizedString(@"Internet Connection is NOT working. Please try again later.", nil)
+                                                                message:NSLocalizedString(@"Internet Connection is NOT working. Please try again later.", nil)
                                                                delegate:nil
                                                       cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                       otherButtonTitles:nil];
             [alertView show];
         });
+        
     };
     
     [self.internetReachable startNotifier];
@@ -178,5 +207,3 @@
 
 
 @end
-
-

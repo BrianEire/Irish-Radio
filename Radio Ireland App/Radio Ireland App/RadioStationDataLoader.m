@@ -1,5 +1,4 @@
 #import <AFNetworking/AFNetworking.h>
-//#import "AFHTTPRequestOperation.h"
 #import "Radio.h"
 #import "CGLAlphabetizer.h"
 #import "Reachability.h"
@@ -37,36 +36,7 @@
          [alertView show];
      }];
 }
-/*
--(void) getRadioStationList:(void (^)(NSArray *data, NSDictionary *dictData))callback
-{
-    NSString *string = RadioStationListURL;
-    NSURL *url = [NSURL URLWithString:string];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSXMLParser *XMLParser = (NSXMLParser *)responseObject;
-        [XMLParser setShouldProcessNamespaces:YES];
-        XMLParser.delegate = self;
-        [XMLParser parse];
-        
-         callback((NSArray*)self.sectionIndexTitles, (NSDictionary*)self.alphabetizedDictionary);
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Radio List"
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-    }];
-    [operation start];
-}
-*/
+
 #pragma mark - XML Parser
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
