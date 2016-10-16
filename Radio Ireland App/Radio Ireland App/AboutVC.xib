@@ -14,31 +14,31 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="Ed7-Xm-yJd"/>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="312" translatesAutoresizingMaskIntoConstraints="NO" id="MdL-u9-GOm">
                     <string key="text">Thank you for trying Irish Radio App. If you are having any problems or would like to give some feedback or suggestions, feel free to drop me an email to bdoyleabc@gmail.com. -Brian</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Ig-jW-2el"/>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="MdL-u9-GOm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="2aW-tx-XSw"/>
-                <constraint firstItem="1Ig-jW-2el" firstAttribute="top" secondItem="MdL-u9-GOm" secondAttribute="bottom" constant="16" id="BJa-z9-OqJ"/>
-                <constraint firstItem="1Ig-jW-2el" firstAttribute="top" secondItem="MdL-u9-GOm" secondAttribute="bottom" constant="16" id="Ba0-PV-czi"/>
-                <constraint firstAttribute="trailing" secondItem="MdL-u9-GOm" secondAttribute="trailing" constant="8" id="gQw-iY-kz8"/>
-                <constraint firstAttribute="bottom" secondItem="1Ig-jW-2el" secondAttribute="bottom" constant="29" id="hkd-NO-br0"/>
-                <constraint firstItem="MdL-u9-GOm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="kRx-AK-0RA"/>
-                <constraint firstAttribute="trailing" secondItem="1Ig-jW-2el" secondAttribute="trailing" constant="31" id="pg5-kU-LFf"/>
-                <constraint firstItem="1Ig-jW-2el" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="31" id="yZM-gy-Ft3"/>
+                <constraint firstItem="Ed7-Xm-yJd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0Mb-3k-seF"/>
+                <constraint firstAttribute="bottom" secondItem="MdL-u9-GOm" secondAttribute="bottom" constant="168" id="28f-LQ-w2c"/>
+                <constraint firstItem="Ed7-Xm-yJd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BJ6-OY-5VJ"/>
+                <constraint firstAttribute="bottom" secondItem="Ed7-Xm-yJd" secondAttribute="bottom" id="C9e-9u-n16"/>
+                <constraint firstItem="MdL-u9-GOm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Wm1-S5-SgS"/>
+                <constraint firstAttribute="trailing" secondItem="MdL-u9-GOm" secondAttribute="trailing" constant="10" id="ZmG-kJ-YUF"/>
+                <constraint firstAttribute="trailing" secondItem="Ed7-Xm-yJd" secondAttribute="trailing" id="fv2-v9-cu0"/>
+                <constraint firstItem="MdL-u9-GOm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gUg-Zg-6iQ"/>
             </constraints>
         </view>
     </objects>
     <resources>
-        <image name="splash.png" width="320" height="480"/>
+        <image name="about" width="320" height="568"/>
     </resources>
 </document>
