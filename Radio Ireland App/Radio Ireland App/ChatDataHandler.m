@@ -49,7 +49,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer]; //[AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:ChatUserNameRegURL
       parameters:parameters2 progress:nil
@@ -100,7 +100,7 @@
                                               otherButtonTitles:nil];
         [alert show];
         
-        callback((int) UserNameTooShort);
+        callback((BOOL) NO);
         
         return;
     }
@@ -145,6 +145,7 @@
                                                             delegate:nil
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                    otherButtonTitles:nil];
+         [alertView show];
      }];
 }
 
