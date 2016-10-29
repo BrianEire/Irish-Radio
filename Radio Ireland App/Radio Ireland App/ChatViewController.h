@@ -12,14 +12,14 @@
 @property (nonatomic, strong) ChatDataHandler *chatHandler;
 @property (nonatomic, assign) float keyBoardHeight;
 
-@property (nonatomic, strong) IBOutlet UITableView * myTableView;
-@property (nonatomic, strong) IBOutlet UITextField * userNameTF;
-@property (nonatomic, strong) IBOutlet UIButton * submitAccountButton;
-@property (nonatomic, strong) IBOutlet UITextView * messageTV;
-@property (nonatomic, strong) IBOutlet UIButton * sendMessage;
-@property (nonatomic, strong) IBOutlet UIView  * registerView;
-@property (nonatomic, strong) IBOutlet UIView * sendMessageView;
-@property (nonatomic, strong) IBOutlet UILabel * nameLabel;
+@property (nonatomic, weak) IBOutlet UITableView * myTableView;
+@property (nonatomic, weak) IBOutlet UITextField * userNameTF;
+@property (nonatomic, weak) IBOutlet UIButton * submitAccountButton;
+@property (nonatomic, weak) IBOutlet UITextView * messageTV;
+@property (nonatomic, weak) IBOutlet UIButton * sendMessage;
+@property (nonatomic, weak) IBOutlet UIView  * registerView;
+@property (nonatomic, weak) IBOutlet UIView * sendMessageView;
+@property (nonatomic, weak) IBOutlet UILabel * nameLabel;
 
 
 - (IBAction)registerUserName:(id)sender;

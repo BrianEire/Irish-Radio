@@ -5,10 +5,10 @@
 {}
 
 
-@property (nonatomic, strong) IBOutlet UILabel * bufferLabel;
-@property (nonatomic, strong) IBOutlet UILabel * stationNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel * songNameLabel;
-@property (nonatomic, strong) IBOutlet UIImageView * bufferImage;
+@property (nonatomic, weak) IBOutlet UILabel * bufferLabel;
+@property (nonatomic, weak) IBOutlet UILabel * stationNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel * songNameLabel;
+@property (nonatomic, weak) IBOutlet UIImageView * bufferImage;
 @property (nonatomic, strong) NSTimer *animationTimer;
 
 - (void)setupRadioUI;

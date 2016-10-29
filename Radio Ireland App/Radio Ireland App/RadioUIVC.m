@@ -11,6 +11,7 @@
 @property (strong, nonatomic) IBOutlet DTShapeButton *recordButton;
 @property (strong, nonatomic) IBOutlet DTShapeButton *TriButton;
 @property (strong, nonatomic) AudioPlayer *radioStreamPlayer;
+@property (strong, nonatomic) CABasicAnimation *spinAnimation;
 @end
 
 @implementation RadioUIVC
@@ -29,12 +30,14 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [self.animationTimer resume];
+    [self.TriButton.shape.shapeLayer addAnimation:self.spinAnimation forKey:@"spin animation"];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.animationTimer pause];
+    [self.TriButton.shape.shapeLayer removeAllAnimations];
 }
 
 #pragma mark - Radio UI Methods
@@ -57,12 +60,12 @@
     self.TriButton.shape.strokeColor = UIColorFromRGB(AppColorGreen);
     self.TriButton.hidden = YES;
     
-    CABasicAnimation *spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    spinAnimation.toValue        = @(1*2*M_PI);
-    spinAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    spinAnimation.duration       = 1.0;
-    spinAnimation.repeatCount    = INFINITY;
-    [self.TriButton.shape.shapeLayer addAnimation:spinAnimation forKey:@"spin animation"];
+    self.spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+    self.spinAnimation.toValue        = @(1*2*M_PI);
+    self.spinAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    self.spinAnimation.duration       = 1.0;
+    self.spinAnimation.repeatCount    = INFINITY;
+    [self.TriButton.shape.shapeLayer addAnimation:self.spinAnimation forKey:@"spin animation"];
 }
 
 
@@ -114,8 +117,6 @@
 #pragma mark - Button Methods
 - (IBAction)playPauseButtonTapped
 {
-    
-    NSLog(@"playPauseButtonTapped");
     
     if (!self.radioStreamPlayer.readyToStream)
     {

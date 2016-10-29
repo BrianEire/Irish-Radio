@@ -5,8 +5,8 @@
 {
 }
 
-@property (nonatomic, strong) IBOutlet UIView * radioUIView;
-@property (nonatomic, strong) IBOutlet UITableView * radioStationTableView;
+@property (nonatomic, weak) IBOutlet UIView * radioUIView;
+@property (nonatomic, weak) IBOutlet UITableView * radioStationTableView;
 @property (nonatomic, strong) RadioUIVC * radioUIViewController;
 
 @property (nonatomic, strong) Reachability *internetReachable;

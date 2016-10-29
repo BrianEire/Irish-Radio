@@ -12,12 +12,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="bOc-od-wiC">
-                    <frame key="frameInset" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="bOc-od-wiC"/>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="bOc-od-wiC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3iA-Oy-Tiw"/>
+                <constraint firstItem="bOc-od-wiC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GdC-7V-NdJ"/>
+                <constraint firstAttribute="trailing" secondItem="bOc-od-wiC" secondAttribute="trailing" id="ItP-Hy-bpi"/>
+                <constraint firstAttribute="bottom" secondItem="bOc-od-wiC" secondAttribute="bottom" id="wZ6-YZ-6bT"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="465" y="455"/>

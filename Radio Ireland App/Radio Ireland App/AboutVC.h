@@ -3,5 +3,5 @@
 @interface AboutVC : UIViewController
 {}
 
-@property (nonatomic, strong) IBOutlet UILabel * aboutLabel;
+@property (nonatomic, weak) IBOutlet UILabel * aboutLabel;
 @end
