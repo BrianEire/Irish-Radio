@@ -12,11 +12,9 @@
 
 
 @implementation RadioViewController
-{
-}
+{}
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     self.radioStreamPlayer = [AudioPlayer sharedManager];
@@ -40,42 +38,35 @@
 
 
 #pragma mark - TABLE Methods
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     return self.sectionIndexTitles;
 }
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return [self.sectionIndexTitles count];
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSString *sectionIndexTitle = self.sectionIndexTitles[section];
     return [self.alphabetizedDictionary[sectionIndexTitle] count];
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return self.sectionIndexTitles[section];
 }
 
 
-- (Radio *)objectAtIndexPath:(NSIndexPath *)indexPath
-{
+- (Radio *)objectAtIndexPath:(NSIndexPath *)indexPath{
     NSString *sectionIndexTitle = self.sectionIndexTitles[indexPath.section];
     return self.alphabetizedDictionary[sectionIndexTitle][indexPath.row];
 }
 
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    if ([view isKindOfClass:[UITableViewHeaderFooterView class]])
-    {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]){
         view.tintColor = UIColorFromRGB(AppColorGreen);
         UILabel *textLabel = [(UITableViewHeaderFooterView *)view textLabel];
         textLabel.textColor = [UIColor whiteColor];
@@ -85,14 +76,12 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     Radio *myRadio = [self objectAtIndexPath:indexPath];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
         
@@ -110,16 +99,12 @@
         descriptionLabel.tag = 11;
         [cell.contentView addSubview: descriptionLabel];
     }
-    else
-    {
-        for (UILabel* view in [cell.contentView subviews])
-        {
-            if (view.tag == 10)  //Condition if that view belongs to any specific class
-            {
+    else{
+        for (UILabel* view in [cell.contentView subviews]){
+            if (view.tag == 10){
                 view.text = myRadio.stationName;
             }
-            else if (view.tag == 11)
-            {
+            else if (view.tag == 11){
                 view.text = myRadio.radioGenres;
             }
         }
@@ -128,16 +113,14 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Radio * myRadio = [self objectAtIndexPath:indexPath];
     [self.radioStreamPlayer playStream:myRadio];
 }
 
 
 #pragma mark - Load Data
-- (void)loadRadioStationList
-{
+- (void)loadRadioStationList{
     [self.radioDataLoader getRadioStationList:^(NSArray *data, NSDictionary *dictData){
         
         self.alphabetizedDictionary = [[NSDictionary alloc] initWithDictionary:dictData];
@@ -149,20 +132,17 @@
 
 
 #pragma mark - Reachability
-- (void)testInternetConnection
-{
+- (void)testInternetConnection{
     self.internetReachable = [Reachability reachabilityWithHostname:@"www.google.com"];
     __weak typeof(self) weakSelf = self;
-    self.internetReachable.reachableBlock = ^(Reachability*reach)
-    {
+    self.internetReachable.reachableBlock = ^(Reachability*reach){
         __strong typeof(self) strongSelf = weakSelf;
         dispatch_async(dispatch_get_main_queue(), ^{
             [strongSelf loadRadioStationList];
         });
     };
 
-    self.internetReachable.unreachableBlock = ^(Reachability*reach)
-    {
+    self.internetReachable.unreachableBlock = ^(Reachability*reach){
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Internet Connection", nil)
                                                 message:NSLocalizedString(@"Internet Connection is NOT working. Please try again later.", nil)
@@ -176,7 +156,4 @@
     [self.internetReachable startNotifier];
 }
 
-
 @end
-
-

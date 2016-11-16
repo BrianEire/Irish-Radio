@@ -14,8 +14,7 @@
 }
 
 #pragma mark - View Lifecycle Methods
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     self.myTableView.delegate = self;
@@ -26,8 +25,7 @@
     
     self.chatHandler = [[ChatDataHandler alloc] init];
     
-    if (self.chatHandler.userIsRegistered)
-    {
+    if (self.chatHandler.userIsRegistered){
         [self showChatMessageUI];
     }
 
@@ -41,25 +39,21 @@
 }
 
 
--(void) viewWillDisappear:(BOOL)animated
-{
+-(void) viewWillDisappear:(BOOL)animated{
     [self.chatMsgLoadingtimer pause];
 }
 
 
--(void) viewWillAppear:(BOOL)animated
-{
+-(void) viewWillAppear:(BOOL)animated{
     self.nameLabel.text = NSLocalizedString(@"Name", nil);
     self.userNameTF.placeholder = NSLocalizedString(@"Enter a chat name", nil);
     [self.submitAccountButton setTitle:NSLocalizedString(@"Register", nil)forState:UIControlStateNormal];
 }
 
 
-- (void) viewDidAppear:(BOOL)animated
-{
+- (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if (self.myTableView.contentSize.height > self.myTableView.frame.size.height)
-    {
+    if (self.myTableView.contentSize.height > self.myTableView.frame.size.height){
         CGPoint offset = CGPointMake(0, self.myTableView.contentSize.height -     self.myTableView.frame.size.height);
         [self.myTableView setContentOffset:offset animated:YES];
     }
@@ -73,8 +67,7 @@
 
 
 #pragma mark - Table Methods
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary * myMessage = [self.myArray objectAtIndex:indexPath.row];
     
     CGRect textRect = [[myMessage objectForKey:@"message"] boundingRectWithSize:CGSizeMake(300, FLT_MAX)
@@ -86,25 +79,21 @@
 }
 
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [self.myArray count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-   if (cell == nil)
-    {
+   if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
         
@@ -131,22 +120,18 @@
         [messageLabel sizeToFit];
          [cell.contentView addSubview: messageLabel];
     }
-   else
-    {
+   else{
         NSDictionary * myMessage = [self.myArray objectAtIndex:indexPath.row];
         
         NSRange range = NSMakeRange(10, 6);
         NSString * dateString = [NSString stringWithString:[myMessage objectForKey:@"date"]];
         NSString *result = [dateString substringWithRange:range];
         
-        for (UILabel* view in [cell.contentView subviews])
-        {
-            if (view.tag == 10)
-            {
+        for (UILabel* view in [cell.contentView subviews]){
+            if (view.tag == 10){
                 view.text = [NSString stringWithFormat:@"%@ %@ @ %@",NSLocalizedString(@"by", nil),[myMessage objectForKey:@"name"], result];
             }
-            else if (view.tag == 11)
-            {
+            else if (view.tag == 11){
                 CGRect textRect = [[myMessage objectForKey:@"message"] boundingRectWithSize:CGSizeMake(300, FLT_MAX)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
                                                   attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15.0]}
@@ -161,18 +146,15 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 
 #pragma mark - Keyboard Methods
-- (void)keyboardDidShow:(NSNotification *)notification
-{
+- (void)keyboardDidShow:(NSNotification *)notification{
     NSDictionary* info = [notification userInfo];
     self.keyBoardHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
-    if (self.view.frame.origin.y < 40)
-    {
+    if (self.view.frame.origin.y < 40){
         CGRect frame = self.view.frame;
         frame.origin.y = 40;
         self.view.frame = frame;
@@ -181,31 +163,25 @@
 }
 
 
--(void)keyboardDidHide:(NSNotification *)notification
-{
-   if (self.view.frame.origin.y < 0)
-    {
+-(void)keyboardDidHide:(NSNotification *)notification{
+   if (self.view.frame.origin.y < 0){
         self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
     }
 }
 
 
--(IBAction)CancelMessage
-{
+-(IBAction)CancelMessage{
     self.messageTV.text = @"";
     [self.messageTV resignFirstResponder];
     
-    if (self.view.frame.origin.y < 0)
-    {
+    if (self.view.frame.origin.y < 0){
         self.view.frame = CGRectOffset(self.view.frame, 0, self.keyBoardHeight);
     }
 }
 
 
--(void) scrollTableToBottom
-{
-    if (self.myTableView.contentSize.height > self.myTableView.frame.size.height)
-    {
+-(void) scrollTableToBottom{
+    if (self.myTableView.contentSize.height > self.myTableView.frame.size.height){
         CGPoint offset = CGPointMake(0, self.myTableView.contentSize.height -     self.myTableView.frame.size.height);
         [self.myTableView setContentOffset:offset animated:YES];
     }
@@ -213,43 +189,36 @@
 
 
 #pragma mark - TextView and Textfield
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return (newLength > 20) ? NO : YES;
 }
 
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     return textView.text.length + (text.length - range.length) <= 100;
 }
 
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
 
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     return YES;
 }
 
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
     return YES;
 }
 
 
 #pragma mark - Messaging Functions
--(void) updateChatMessages
-{
-    if ([self.myArray count] == 0)
-    {
+-(void) updateChatMessages{
+    if ([self.myArray count] == 0){
         [self loadChatData];
         return;
     }
@@ -268,29 +237,24 @@
 }
 
 
-- (IBAction)sendNewMessage:(id)sender
-{
+- (IBAction)sendNewMessage:(id)sender{
     [self.chatHandler sendChatMessage:self.messageTV.text andCallback:^(BOOL result){
         
         [self CancelMessage];
         
-        if (result)
-        {
+        if (result){
             [self updateChatMessages];
         }
         else
-        {
-        }
+        {}
     }];
 }
 
 
-- (IBAction)registerUserName:(id)sender
-{
+- (IBAction)registerUserName:(id)sender{
     [self.chatHandler registerUserName:self.userNameTF.text andCallback:^(int result){
         
-        if (result == UserNameRegistered)
-        {
+        if (result == UserNameRegistered){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Success", nil)
                                                                 message:NSLocalizedString(@"Chat name created.", nil)
                                                                delegate:nil
@@ -298,8 +262,7 @@
                                                       otherButtonTitles:nil];
             [alertView show];
         }
-        else if (result == UserNameTooShort)
-        {
+        else if (result == UserNameTooShort){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"User Name", nil)
                                                             message:NSLocalizedString(@"User Name must be atleast 2 characters long", nil)
                                                            delegate:nil
@@ -307,8 +270,7 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }
-        else if (result == UserNameRegisterFailed)
-        {
+        else if (result == UserNameRegisterFailed){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                                                 message:NSLocalizedString(@"Could not create this name, please try again.", nil)
                                                     delegate:nil
@@ -317,16 +279,14 @@
             [alertView show];
         }
         else if (result == UserNameX)
-        {
-        }
+        {}
         
         [self showChatMessageUI];
     }];
 }
 
 
-- (void)loadChatData
-{
+- (void)loadChatData{
     [self.chatHandler getChatMessages:^(NSArray* result){
         
         self.myArray = [[NSMutableArray alloc] initWithArray:(NSArray *)result];
@@ -338,15 +298,12 @@
 }
 
 
--(void) showChatMessageUI
-{
-    if (self.chatHandler.userIsRegistered)
-    {
+-(void) showChatMessageUI{
+    if (self.chatHandler.userIsRegistered){
         self.registerView.layer.hidden = true;
         self.sendMessageView.layer.hidden = false;
     }
-    else
-    {
+    else{
         self.registerView.layer.hidden = false;
         self.sendMessageView.layer.hidden = true;
     }

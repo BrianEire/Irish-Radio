@@ -1,7 +1,7 @@
 @import AVFoundation;
 #import "Radio.h"
 
-@interface AudioPlayer : NSObject <AVAudioPlayerDelegate>
+@interface AudioPlayer : NSObject <AVAudioSessionDelegate>
 {
 }
 
@@ -11,7 +11,8 @@
 @property (nonatomic, strong) NSString* songName;
 @property (nonatomic, strong) Radio* radioStationToPlay;
 @property (nonatomic, strong) AVPlayerItem *playerItem;
-@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVQueuePlayer *player;
+@property (nonatomic, strong) AVAudioSession *myAVAudioSession;
 
 
 + (id)sharedManager;

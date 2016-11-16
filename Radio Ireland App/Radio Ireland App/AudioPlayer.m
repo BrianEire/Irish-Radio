@@ -4,30 +4,18 @@
 @import MediaPlayer;
 #import "Radio.h"
 
-
-void *kCurrentItemDidChangeKVO  = &kCurrentItemDidChangeKVO;
-void *kRateDidChangeKVO         = &kRateDidChangeKVO;
-void *kStatusDidChangeKVO       = &kStatusDidChangeKVO;
-void *kDurationDidChangeKVO     = &kDurationDidChangeKVO;
 void *kTimeRangesKVO            = &kTimeRangesKVO;
-void *kBufferFullKVO            = &kBufferFullKVO;
-void *kBufferEmptyKVO           = &kBufferEmptyKVO;
-void *kDidFailKVO = &kDidFailKVO;
 
 @interface AudioPlayer ()
 
 @property (nonatomic, strong) MPRemoteCommandCenter *rcc;
+@property (nonatomic, strong) MPRemoteCommand *pauseCommand;
+@property (nonatomic, strong) MPRemoteCommand *playCommand;
 
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
-                       successfully:(BOOL)flag;
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player
-                                 error:(NSError *)error;
 @end
 
 
-@implementation AudioPlayer
-{
+@implementation AudioPlayer{
 }
 
 
@@ -42,20 +30,29 @@ void *kDidFailKVO = &kDidFailKVO;
 }
 
 
-- (id)init
-{
-    if (self = [super init])
-    {
+- (id)init{
+    if (self = [super init]){
         _streaming = NO;
-        _rcc = [MPRemoteCommandCenter sharedCommandCenter];
         
-        MPRemoteCommand *pauseCommand = [_rcc pauseCommand];
-        [pauseCommand setEnabled:YES];
-        [pauseCommand addTarget:self action:@selector(pauseEvent)];
+        self.myAVAudioSession = [AVAudioSession sharedInstance];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionInterruptionNotification:) name:AVAudioSessionInterruptionNotification object:self.myAVAudioSession];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(routeChange:)
+                                                     name:AVAudioSessionRouteChangeNotification
+                                                   object:self.myAVAudioSession];
+        
+        
+        self.rcc = [MPRemoteCommandCenter sharedCommandCenter];
+        
+        self.pauseCommand = [_rcc pauseCommand];
+        [self.pauseCommand addTarget:self action:@selector(pauseEvent)];
 
-        MPRemoteCommand *playCommand = [_rcc playCommand];
-        [playCommand setEnabled:YES];
-        [playCommand addTarget:self action:@selector(playEvent)];
+        self.playCommand = [_rcc playCommand];
+        [self.playCommand addTarget:self action:@selector(playEvent)];
         
         _readyToStream = NO;
     }
@@ -63,45 +60,67 @@ void *kDidFailKVO = &kDidFailKVO;
 }
 
 
-#pragma mark - AVAudioPlayerDelegate
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
-{}
+-(void)routeChange:(NSNotification*)notification{
+    
+    NSDictionary *interuptionDict = notification.userInfo;
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    
+    switch (routeChangeReason){
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:{
+            NSError* error;
+            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+        }
+            break;
+            
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:{
+            _streaming= NO;
+        }
+            break;
+        default:
+        {}
+            break;
+    }
+    
+}
 
 
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
-{}
+-(void)audioSessionInterruptionNotification:(NSNotification*)notification{
+    
+    if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification]){
+        //Check to see if it was a Begin interruption
+        if ([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeBegan]]){
+            [self.player pause];
+            _streaming= NO;
+        }
+        else if([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeEnded]]){
+            //this seems buggy, calling after a slight delay works 100%, without it is unreliable
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self resumeStreamer];
+            });
+        }
+    }
+}
 
 
 #pragma mark - Stream KVO
 - (void) observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object
-                         change:(NSDictionary*)change context:(void*)context
-{
-    if ([keyPath isEqualToString:@"timedMetadata"])
-    {
-        AVPlayerItem* playerItemX = object;
-        for (AVMetadataItem* metadata in playerItemX.timedMetadata)
-        {
-            if ([[metadata commonKey]  isEqual: @"title"])
-            {
+                         change:(NSDictionary*)change context:(void*)context{
+    
+    if ([keyPath isEqualToString:@"currentItem.timedMetadata"]){
+        AVQueuePlayer* queuePlayer = object;
+        for (AVMetadataItem* metadata in queuePlayer.currentItem.timedMetadata){
+            if ([[metadata commonKey]  isEqual: @"title"]){
                 self.songName = [NSString stringWithString:[metadata.value copyWithZone:nil]];
             }
         }
     }
 
-    else if (kStatusDidChangeKVO == context)
-    {
-        if (self.player.status == AVPlayerStatusReadyToPlay)
-        {
-        }
-    }
-    else if (kTimeRangesKVO == context)
-    {
+    if ([keyPath isEqualToString:@"currentItem.loadedTimeRanges"]){
         NSArray *timeRanges = (NSArray *)[change objectForKey:NSKeyValueChangeNewKey];
         
-        if (![[NSNull null] isEqual:timeRanges])
-        {
-            if (timeRanges && [timeRanges count])
-            {
+        if (![[NSNull null] isEqual:timeRanges]){
+            if (timeRanges && [timeRanges count]){
                 CMTimeRange timerange = [[timeRanges objectAtIndex:0] CMTimeRangeValue];
                 _bufferLength = CMTimeGetSeconds(timerange.duration);
             }
@@ -112,37 +131,45 @@ void *kDidFailKVO = &kDidFailKVO;
 
 
 #pragma mark - Stream Control Methods
--(void)playStream:(Radio*) theRadioStation
-{
+-(void)playStream:(Radio*) theRadioStation{
     self.songName = @" ";
     
     _readyToStream = YES;
     _radioStationToPlay = theRadioStation;
     
-    if (self.player != nil)
-    {
-        [self.playerItem removeObserver:self forKeyPath:@"timedMetadata"];
-        [self.player removeObserver:self forKeyPath:@"currentItem.status"];
-        [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
+    if (self.player != nil){
+       [self.player removeObserver:self forKeyPath:@"currentItem.timedMetadata"];
+       [self.player removeObserver:self forKeyPath:@"currentItem.status"];
+       [self.player removeObserver:self forKeyPath:@"currentItem.loadedTimeRanges"];
     }
     
-    self.playerItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]];
     
-    [self.playerItem addObserver:self forKeyPath:@"timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
     
-    self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+    NSArray *queue = @[
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]],
+                       [AVPlayerItem playerItemWithURL:[NSURL URLWithString:_radioStationToPlay.streamURL]]];
     
-    AVAudioSession *session = [AVAudioSession sharedInstance];
+    self.player = [[AVQueuePlayer alloc] initWithItems:queue];
+    self.player.actionAtItemEnd = AVPlayerActionAtItemEndAdvance;
     
     NSError *setCategoryError = nil;
-    if (![session setCategory:AVAudioSessionCategoryPlayback
+    if (![self.myAVAudioSession setCategory:AVAudioSessionCategoryPlayback
                   withOptions:kAudioSessionCategory_MediaPlayback
-                        error:&setCategoryError])
-    {
+                        error:&setCategoryError]){
     }
     
-    [self.player addObserver:self forKeyPath:@"currentItem.status"              options:NSKeyValueObservingOptionNew context:kStatusDidChangeKVO];
-    [self.player addObserver:self forKeyPath:@"currentItem.loadedTimeRanges"    options:NSKeyValueObservingOptionNew context:kTimeRangesKVO];
+
+    [self.player addObserver:self forKeyPath:@"currentItem.timedMetadata" options:NSKeyValueObservingOptionNew context:nil];
+    [self.player addObserver:self forKeyPath:@"currentItem.loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+    [self.player addObserver:self forKeyPath:@"currentItem.status" options:NSKeyValueObservingOptionNew context:nil];
     
     [self.player play];
     _streaming= YES;
@@ -150,36 +177,27 @@ void *kDidFailKVO = &kDidFailKVO;
 }
 
 
--(void) pauseEvent
-{
-    [_rcc.playCommand setEnabled:YES];
-    [_rcc.pauseCommand setEnabled:NO];
+-(void) pauseEvent{
     [self.player pause];
     _streaming = NO;
 }
 
 
--(void) playEvent
-{
+-(void) playEvent{
     [self.player play];
-    [_rcc.playCommand setEnabled:NO];
-    [_rcc.pauseCommand setEnabled:YES];
     _streaming = YES;
     _readyToStream = YES;
 }
 
 
--(void) pauseStreamer
-{
+-(void) pauseStreamer{
     [self.player pause];
     _streaming= NO;
 }
 
 
--(void) resumeStreamer
-{
+-(void) resumeStreamer{
     [self.player play];
     _streaming= YES;
-    
 }
 @end

@@ -15,34 +15,40 @@
 @end
 
 @implementation RadioUIVC
-{
-}
+{}
 
 #pragma mark - View Lifecycle
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     self.radioStreamPlayer = [AudioPlayer sharedManager];
     [self setupRadioUI];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationEnteredForeground:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
 }
 
 
--(void)viewDidAppear:(BOOL)animated
-{
+-(void)viewDidAppear:(BOOL)animated{
     [self.animationTimer resume];
     [self.TriButton.shape.shapeLayer addAnimation:self.spinAnimation forKey:@"spin animation"];
 }
 
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated{
     [self.animationTimer pause];
     [self.TriButton.shape.shapeLayer removeAllAnimations];
 }
 
+
+- (void)applicationEnteredForeground:(NSNotification *)notification {
+    [self.animationTimer resume];
+    [self.TriButton.shape.shapeLayer addAnimation:self.spinAnimation forKey:@"spin animation"];
+}
+
 #pragma mark - Radio UI Methods
-- (void)setupRadioUI
-{
+- (void)setupRadioUI{
     [self.stationNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [self.songNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:13.0]];
     self.songNameLabel.textColor = UIColorFromRGB(AppColorGreen);
@@ -69,68 +75,58 @@
 }
 
 
--(void)animateRadioUI
-{
+-(void)animateRadioUI{
     double bufferPercentage = self.radioStreamPlayer.bufferLength / MaxBufferLength;
     double height = MaxBufferHeight * (bufferPercentage);
 
     self.bufferImage.frame = CGRectMake(202, 63-height , 36, height);
     self.bufferImage.hidden = NO;
 
-    if ([self.radioStreamPlayer.radioStationToPlay.stationName isEqual: [NSNull null]])
-    {
+    if ([self.radioStreamPlayer.radioStationToPlay.stationName isEqual: [NSNull null]]){
         self.stationNameLabel.text = [NSString stringWithFormat:@"%@", NSLocalizedString(@"Select a Station", nil)];
     }
-    else if (self.radioStreamPlayer.radioStationToPlay.stationName == nil)
-    {
+    else if (self.radioStreamPlayer.radioStationToPlay.stationName == nil){
         self.stationNameLabel.text = [NSString stringWithFormat:@"%@", NSLocalizedString(@"Select a Station", nil)];
     }
-    else
-    {
+    else{
         self.stationNameLabel.text = [NSString stringWithFormat:@"%@", self.radioStreamPlayer.radioStationToPlay.stationName];
     }
     
-    if ([self.radioStreamPlayer.songName isEqual: [NSNull null]])
-    {
+    if ([self.radioStreamPlayer.songName isEqual: [NSNull null]]){
         self.songNameLabel.text = [NSString stringWithFormat:@"%@", @" "];
     }
-    else if (self.radioStreamPlayer.songName == nil)
-    {
+    else if (self.radioStreamPlayer.songName == nil){
         self.songNameLabel.text = [NSString stringWithFormat:@"%@", @" "];
     }
-    else
-    {
+    else{
         self.songNameLabel.text = [NSString stringWithFormat:@"%@", self.radioStreamPlayer.songName];
     }
     
-    if (self.radioStreamPlayer.streaming)
-    {
+    if (self.radioStreamPlayer.streaming){
         [self.recordButton setImage:[UIImage imageNamed:@"Pause-30.png" ] forState:UIControlStateNormal];
         self.TriButton.hidden = NO;
     }
-    else
-    {
+    else{
+        [self.recordButton setImage:[UIImage imageNamed:@"Triangle-30.png" ] forState:UIControlStateNormal];
+        self.TriButton.hidden = YES;
     }
 }
 
 
+
+
 #pragma mark - Button Methods
-- (IBAction)playPauseButtonTapped
-{
-    
-    if (!self.radioStreamPlayer.readyToStream)
-    {
+- (IBAction)playPauseButtonTapped{
+    if (!self.radioStreamPlayer.readyToStream){
         return;
     }
     
-    if (!self.radioStreamPlayer.streaming)
-    {
+    if (!self.radioStreamPlayer.streaming){
         [self.recordButton setImage:[UIImage imageNamed:@"Pause-30.png" ] forState:UIControlStateNormal];
         [self.radioStreamPlayer resumeStreamer];
         self.TriButton.hidden = NO;
     }
-    else
-    {
+    else{
         [self.recordButton setImage:[UIImage imageNamed:@"Triangle-30.png" ] forState:UIControlStateNormal];
         [self.radioStreamPlayer pauseStreamer];
         self.TriButton.hidden = YES;

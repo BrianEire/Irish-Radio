@@ -1,8 +1,10 @@
 #import "AppDelegate.h"
 @import AVFoundation;
-
+@import CoreTelephony.CTTelephonyNetworkInfo;
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) CTTelephonyNetworkInfo *networkInfo;
 
 @end
 
@@ -17,8 +19,27 @@
     [[AVAudioSession sharedInstance] setActive:YES
                                          error:nil];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+   
+    /*
+    CTTelephonyNetworkInfo *telephonyInfo = [CTTelephonyNetworkInfo new];
+    NSLog(@"Current Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+    [NSNotificationCenter.defaultCenter addObserverForName:CTRadioAccessTechnologyDidChangeNotification
+                                                    object:nil
+                                                     queue:nil
+                                                usingBlock:^(NSNotification *note)
+    {
+        NSLog(@"New Radio Access Technology: %@", telephonyInfo.currentRadioAccessTechnology);
+    }];*/
+    
     return YES;
 }
+
+/*
+
+- (void)radioAccessChanged {
+    NSLog(@"Now you're connected via %@", self.networkInfo.currentRadioAccessTechnology);
+}
+*/
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

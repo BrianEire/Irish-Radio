@@ -47,8 +47,8 @@
                     <frame key="frameInset" minX="190" minY="5" width="60" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nsB-Sb-JDG" userLabel="Tri">
-                    <frame key="frameInset" minX="265" minY="9" width="50" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nsB-Sb-JDG" userLabel="Tri">
+                    <frame key="frameInset" minX="263" minY="9" width="50" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="Triangle-30.png">
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,8 +57,8 @@
                         <action selector="playPauseButtonTapped" destination="-1" eventType="touchUpInside" id="e4R-jN-yUn"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HkZ-yR-tbb" userLabel="CircleAnim" customClass="DTShapeButton">
-                    <frame key="frameInset" minX="260" minY="4" width="60" height="60"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HkZ-yR-tbb" userLabel="CircleAnim" customClass="DTShapeButton">
+                    <frame key="frameInset" minX="258" minY="4" width="60" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal">
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

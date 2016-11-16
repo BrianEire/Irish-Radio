@@ -6,30 +6,25 @@
 @implementation ChatDataHandler
 
 
-- (id)init
-{
+- (id)init{
     self = [super init];
-    if (!self)
-    {
+    if (!self){
         return nil;
     }
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.userIsRegistered = [defaults boolForKey:@"userIsRegistered"];
     
-     if (self.userIsRegistered)
-     {
+     if (self.userIsRegistered){
          self.savedUserName = [defaults objectForKey:@"savedUserName"];
      }
     return self;
 }
 
 
-- (void)registerUserName:(NSString*)userName andCallback:(void (^)(int))callback
-{
+- (void)registerUserName:(NSString*)userName andCallback:(void (^)(int))callback{
     NSString *nameString = [userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if ([nameString length] < 2)
-    {
+    if ([nameString length] < 2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"User Name", nil)
                                                         message:NSLocalizedString(@"User Name must be atleast 2 characters long", nil)
                                                        delegate:nil
@@ -53,14 +48,12 @@
     
     [manager GET:ChatUserNameRegURL
       parameters:parameters2 progress:nil
-         success:^(NSURLSessionDataTask *task, id responseObject)
-     {
+         success:^(NSURLSessionDataTask *task, id responseObject){
          
          NSString *text = [[NSString alloc] initWithData:responseObject
                                                 encoding:NSUTF8StringEncoding];
          
-         if ([text isEqualToString: @"Success"])
-         {
+         if ([text isEqualToString: @"Success"]){
 
              self.savedUserName = [NSString stringWithString:nameString];
              self.userIsRegistered = YES;
@@ -73,8 +66,7 @@
              callback((int) UserNameRegistered);
 
          }
-         else
-         {
+         else{
              callback((int) UserNameRegisterFailed);
          }
          
@@ -86,13 +78,11 @@
 }
 
 
-- (void)sendChatMessage:(NSString*)chatMsg andCallback:(void (^)(BOOL))callback
-{
+- (void)sendChatMessage:(NSString*)chatMsg andCallback:(void (^)(BOOL))callback{
     NSUUID *oNSUUID = [[UIDevice currentDevice] identifierForVendor];
     NSString *UDIDstring = [NSString stringWithString:[oNSUUID UUIDString]];
     
-    if ([chatMsg length] < 2)
-    {
+    if ([chatMsg length] < 2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Message", nil)
                                                         message:NSLocalizedString(@"Messages must be atleast 2 characters long", nil)
                                                        delegate:nil
@@ -115,31 +105,26 @@
     
     [manager GET:ChatSendMsgURL
       parameters:parameters2 progress:nil
-         success:^(NSURLSessionDataTask *task, id responseObject)
-     {
+         success:^(NSURLSessionDataTask *task, id responseObject){
          callback((BOOL) YES);
      }
-         failure:^(NSURLSessionDataTask *task, NSError *error)
-    {
+         failure:^(NSURLSessionDataTask *task, NSError *error){
         callback((BOOL) NO);
          }];
 }
 
 
-- (void)getChatMessages:(void (^)(NSArray *))callback
-{
+- (void)getChatMessages:(void (^)(NSArray *))callback{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [manager GET:ChatLoadAllMsgURL
       parameters:nil progress:nil
      
-         success:^(NSURLSessionDataTask *task, id responseObject)
-     {
+         success:^(NSURLSessionDataTask *task, id responseObject){
          callback((NSArray*) responseObject);
      }
-         failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
+         failure:^(NSURLSessionDataTask *task, NSError *error){
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error Retrieving Chat", nil)
                                                              message:[error localizedDescription]
                                                             delegate:nil
@@ -150,8 +135,7 @@
 }
 
 
-- (void)getNewChatMessages:(NSString*)lastMsgID andCallback:(void (^)(NSArray *))callback
-{
+- (void)getNewChatMessages:(NSString*)lastMsgID andCallback:(void (^)(NSArray *))callback{
     NSDictionary *parameters2 = [NSDictionary dictionaryWithObjectsAndKeys: lastMsgID, @"theid", nil];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -160,12 +144,10 @@
     [manager GET:ChatUpdateChatURL
       parameters:parameters2 progress:nil
      
-         success:^(NSURLSessionDataTask *task, id responseObject)
-     {
+         success:^(NSURLSessionDataTask *task, id responseObject){
          callback((NSArray*) responseObject);
      }
-         failure:^(NSURLSessionDataTask *task, NSError *error)
-     {
+         failure:^(NSURLSessionDataTask *task, NSError *error){
          
      }];
 }
